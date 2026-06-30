@@ -47,6 +47,20 @@ export class Tree {
     }
     return false;
   }
+  insert(value) {
+    const insertedNode = new Node(value);
+    if (this.root === null) this.root = insertedNode;
+    let currentNode = this.root;
+    while (currentNode !== null) {
+      if (currentNode.data < value && currentNode.right !== null)
+        currentNode = currentNode.right;
+      else if (currentNode.data > value && currentNode.left !== null)
+        currentNode = currentNode.left;
+      else break;
+    }
+    if (currentNode.data < value) currentNode.right = insertedNode;
+    else currentNode.left = insertedNode;
+  }
 }
 const tree = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
 console.log(tree.array);
