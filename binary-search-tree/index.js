@@ -59,7 +59,7 @@ export class Tree {
       else break;
     }
     if (currentNode.data < value) currentNode.right = insertedNode;
-    else currentNode.left = insertedNode;
+    else if (currentNode.data > value) currentNode.left = insertedNode;
   }
 }
 const tree = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
