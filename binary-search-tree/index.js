@@ -37,6 +37,16 @@ export class Tree {
     newRoot.right = this.buildTree(array.slice(middle + 1, array.length));
     return newRoot;
   }
+  includes(value) {
+    if (this.root === null) return false;
+    let currentNode = this.root;
+    while (currentNode !== null) {
+      if (currentNode.data === value) return true;
+      if (currentNode.data < value) currentNode = currentNode.right;
+      else currentNode = currentNode.left;
+    }
+    return false;
+  }
 }
 const tree = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
 console.log(tree.array);
