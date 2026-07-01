@@ -49,7 +49,10 @@ export class Tree {
   }
   insert(value) {
     const insertedNode = new Node(value);
-    if (this.root === null) this.root = insertedNode;
+    if (this.root === null) {
+      this.root = insertedNode;
+      return;
+    }
     let currentNode = this.root;
     while (currentNode !== null) {
       if (currentNode.data < value && currentNode.right !== null)
