@@ -64,7 +64,43 @@ export class Tree {
     if (currentNode.data < value) currentNode.right = insertedNode;
     else if (currentNode.data > value) currentNode.left = insertedNode;
   }
+  #replaceNode(parent, node, replacement) {
+    if (node === this.root) this.root = replacement;
+    else if (parent.right === node) parent.right = replacement;
+    else parent.left = replacement;
+  }
+  deleteItem(value) {
+    if (this.root === null) return;
+    let parentNode = null;
+    let currentNode = this.root;
+    while (currentNode !== null) {
+      if (currentNode.data === value) break;
+      parentNode = currentNode;
+      if (currentNode.data < value) currentNode = currentNode.right;
+      else currentNode = currentNode.left;
+    }
+    if (currentNode === null) return;
+    if (currentNode.left === null && currentNode.right === null) {
+      this.#replaceNode(parentNode, currentNode, null);
+      return;
+    } else if (currentNode.left === null) {
+      this.#replaceNode(parentNode, currentNode, currentNode.right);
+      return;
+    } else if (currentNode.right === null) {
+      this.#replaceNode(parentNode, currentNode, currentNode.left);
+      return;
+    }
+    let successorParent = currentNode;
+    let successor = successorParent.right;
+    while (successor !== null && successor.left !== null) {
+      successorParent = successor;
+      successor = successor.left;
+    }
+    currentNode.data = successor.data;
+    if (successorParent === currentNode)
+      successorParent.right = successor.right;
+    else {
+      successorParent.left = successor.right;
+    }
+  }
 }
-const tree = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
-console.log(tree.array);
-prettyPrint(tree.buildTree(tree.array));
