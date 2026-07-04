@@ -138,4 +138,16 @@ export class Tree {
       }
     }
   }
+  preOrderForEach(callback) {
+    this.#callbackCheck(callback);
+    const nodeStack = [];
+    if (this.root === null) return;
+    nodeStack.push(this.root);
+    while (nodeStack.length !== 0) {
+      let currentNode = nodeStack.pop();
+      callback(currentNode.data);
+      if (currentNode.right) nodeStack.push(currentNode.right);
+      if (currentNode.left) nodeStack.push(currentNode.left);
+    }
+  }
 }
