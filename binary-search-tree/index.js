@@ -197,4 +197,22 @@ export class Tree {
     }
     return maxHeight;
   }
+  depth(value) {
+    if (this.root === null) return;
+    let targetNode = this.root;
+    let count = 0;
+    while (targetNode !== null) {
+      if (targetNode.data === value) break;
+      else if (targetNode.data < value) {
+        targetNode = targetNode.right;
+        count++;
+      } else {
+        targetNode = targetNode.left;
+        count++;
+      }
+    }
+    if (targetNode === null) return;
+    return count;
+  }
+  isBalanced() {}
 }
