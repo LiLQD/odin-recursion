@@ -31,7 +31,7 @@ export class Tree {
   }
   buildTree(array) {
     if (array.length <= 0) return null;
-    const middle = Math.floor((array.length - 1) / 2);
+    const middle = Math.floor(array.length / 2);
     const newRoot = new Node(array[middle]);
     newRoot.left = this.buildTree(array.slice(0, middle));
     newRoot.right = this.buildTree(array.slice(middle + 1, array.length));
