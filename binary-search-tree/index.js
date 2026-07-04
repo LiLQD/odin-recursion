@@ -240,4 +240,11 @@ export class Tree {
     }
     return true;
   }
+  rebalance() {
+    if (this.root === null) return;
+    const arr = [];
+    this.inOrderForEach((value) => arr.push(value));
+    this.array = arr;
+    this.root = this.buildTree(arr);
+  }
 }
