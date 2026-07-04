@@ -177,4 +177,24 @@ export class Tree {
       }
     }
   }
+  height(value) {
+    if (this.root === null) return;
+    let targetNode = this.root;
+    while (targetNode !== null) {
+      if (targetNode.data === value) break;
+      if (targetNode.data < value) targetNode = targetNode.right;
+      else targetNode = targetNode.left;
+    }
+    if (targetNode === null) return;
+    const nodeStack = [];
+    nodeStack.push([targetNode, 0]);
+    let maxHeight = 0;
+    while (nodeStack.length !== 0) {
+      let [node, depth] = nodeStack.pop();
+      maxHeight = Math.max(depth, maxHeight);
+      if (node.left) nodeStack.push([node.left, depth + 1]);
+      if (node.right) nodeStack.push([node.right, depth + 1]);
+    }
+    return maxHeight;
+  }
 }
