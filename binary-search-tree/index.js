@@ -150,4 +150,26 @@ export class Tree {
       if (currentNode.left) nodeStack.push(currentNode.left);
     }
   }
+  postOrderForEach(callback) {
+    this.#callbackCheck(callback);
+    if (this.root === null) return;
+    const nodeStack = [];
+    let currentNode = this.root;
+    let lastVisited = null;
+    while (currentNode !== null || nodeStack.length !== 0) {
+      if (currentNode !== null) {
+        nodeStack.push(currentNode);
+        currentNode = currentNode.left;
+      } else {
+        let peek = nodeStack[nodeStack.length - 1];
+        if (peek.right !== null && peek.right !== lastVisited)
+          currentNode = peek.right;
+        else {
+          peek = nodeStack.pop();
+          callback(peek.data);
+          lastVisited = peek;
+        }
+      }
+    }
+  }
 }
