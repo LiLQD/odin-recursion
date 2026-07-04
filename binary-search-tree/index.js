@@ -122,4 +122,20 @@ export class Tree {
       firstIndex++;
     }
   }
+  inOrderForEach(callback) {
+    this.#callbackCheck(callback);
+    const nodeStack = [];
+    if (this.root === null) return;
+    let currentNode = this.root;
+    while (currentNode !== null || nodeStack.length !== 0) {
+      if (currentNode !== null) {
+        nodeStack.push(currentNode);
+        currentNode = currentNode.left;
+      } else {
+        currentNode = nodeStack.pop();
+        callback(currentNode.data);
+        currentNode = currentNode.right;
+      }
+    }
+  }
 }
