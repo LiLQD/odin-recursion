@@ -104,9 +104,12 @@ export class Tree {
       successorParent.left = successor.right;
     }
   }
-  levelOrderForEach(callback) {
-    if (typeof callback !== 'function')
+  #callbackCheck(cb) {
+    if (typeof cb !== 'function')
       throw new Error('Callback function is required.');
+  }
+  levelOrderForEach(callback) {
+    this.#callbackCheck(callback);
     const nodeQueue = [];
     let firstIndex = 0;
     if (this.root === null) return;
