@@ -1,3 +1,4 @@
+import { node } from 'webpack';
 import { mergeSort } from '../recursion/index.js';
 export class Node {
   constructor(data = null, left = null, right = null) {
@@ -101,6 +102,21 @@ export class Tree {
       successorParent.right = successor.right;
     else {
       successorParent.left = successor.right;
+    }
+  }
+  levelOrderForEach(callback) {
+    if (typeof callback !== 'function')
+      throw new Error('Callback function is required.');
+    const nodeQueue = [];
+    let firstIndex = 0;
+    if (this.root === null) return;
+    nodeQueue.push(this.root);
+    while (firstIndex < nodeQueue.length) {
+      const currentNode = nodeQueue[firstIndex];
+      if (currentNode.left) nodeQueue.push(currentNode.left);
+      if (currentNode.right) nodeQueue.push(currentNode.right);
+      callback(currentNode.data);
+      firstIndex++;
     }
   }
 }
