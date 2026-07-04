@@ -214,5 +214,30 @@ export class Tree {
     if (targetNode === null) return;
     return count;
   }
-  isBalanced() {}
+  #heightFromNode(targetNode) {
+    if (targetNode === null) return -1;
+    const nodeStack = [];
+    nodeStack.push([targetNode, 0]);
+    let maxHeight = 0;
+    while (nodeStack.length !== 0) {
+      let [node, depth] = nodeStack.pop();
+      maxHeight = Math.max(depth, maxHeight);
+      if (node.left) nodeStack.push([node.left, depth + 1]);
+      if (node.right) nodeStack.push([node.right, depth + 1]);
+    }
+    return maxHeight;
+  }
+  isBalanced() {
+    if (this.root === null) return true;
+    const nodeStack = [this.root];
+    while (nodeStack.length !== 0) {
+      const currentNode = nodeStack.pop();
+      const leftHeight = this.#heightFromNode(currentNode.left);
+      const rightHeight = this.#heightFromNode(currentNode.right);
+      if (Math.abs(leftHeight - rightHeight) > 1) return false;
+      if (currentNode.left) nodeStack.push(currentNode.left);
+      if (currentNode.right) nodeStack.push(currentNode.right);
+    }
+    return true;
+  }
 }
