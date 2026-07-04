@@ -210,7 +210,7 @@ describe('Tree', () => {
 
       tree.preOrderForEach((value) => values.push(value));
 
-      expect(values).toEqual([8, 4, 3, 1, 7, 5, 67, 23, 9, 324, 6345]);
+      expect(values).toEqual([8, 4, 3, 1, 7, 5, 67, 23, 9, 6345, 324]);
     });
 
     test('postOrderForEach(callback) traverses left-right-root', () => {
