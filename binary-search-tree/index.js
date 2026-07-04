@@ -1,4 +1,3 @@
-import { node } from 'webpack';
 import { mergeSort } from '../recursion/index.js';
 export class Node {
   constructor(data = null, left = null, right = null) {
@@ -32,7 +31,7 @@ export class Tree {
   }
   buildTree(array) {
     if (array.length <= 0) return null;
-    const middle = Math.floor(array.length / 2);
+    const middle = Math.floor((array.length - 1) / 2);
     const newRoot = new Node(array[middle]);
     newRoot.left = this.buildTree(array.slice(0, middle));
     newRoot.right = this.buildTree(array.slice(middle + 1, array.length));
@@ -56,14 +55,20 @@ export class Tree {
     }
     let currentNode = this.root;
     while (currentNode !== null) {
-      if (currentNode.data < value && currentNode.right !== null)
-        currentNode = currentNode.right;
-      else if (currentNode.data > value && currentNode.left !== null)
+      if (currentNode.data > value) {
+        if (currentNode.left === null) {
+          currentNode.left = insertedNode;
+          return;
+        }
         currentNode = currentNode.left;
-      else break;
+      } else if (currentNode.data < value) {
+        if (currentNode.right === null) {
+          currentNode.right = insertedNode;
+          return;
+        }
+        currentNode = currentNode.right;
+      } else return;
     }
-    if (currentNode.data < value) currentNode.right = insertedNode;
-    else if (currentNode.data > value) currentNode.left = insertedNode;
   }
   #replaceNode(parent, node, replacement) {
     if (node === this.root) this.root = replacement;
