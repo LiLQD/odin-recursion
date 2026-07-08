@@ -1,4 +1,4 @@
-import { knightMoves } from './knightsTravails.js';
+import { knightMoves } from './index.js';
 
 const isOnBoard = ([x, y]) => {
   return (
